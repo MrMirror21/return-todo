@@ -5,7 +5,7 @@ import { favoriteState } from '../store/states';
 import ArrowDownIcon from '../public/statics/svg/iconmonstr-arrow-65.svg';
 import PlusIcon from '../public/statics/svg/iconmonstr-plus-thin.svg';;
 
-const MyProjects: React.FC = () => {
+const MyProjects: React.FC = ({setIsModalOpen}) => {
     const [projects, setProjects] = useRecoilState(favoriteState);
     const [isOpen, setIsOpen] = useState(true);
   return (
@@ -14,10 +14,10 @@ const MyProjects: React.FC = () => {
         <HeaderRow onClick={() => setIsOpen(!isOpen)}>
             <ArrowDownIcon className={isOpen ? "rotate Icon" : "Icon"} />
             <span>프로젝트</span>
-            <IconContainer className="add-project">
-                <PlusIcon transform="scale(0.7)"/>
-            </IconContainer>
         </HeaderRow>
+        <IconContainer className="add-project">
+            <PlusIcon transform="scale(0.7)" onClick={() => setIsModalOpen(true)}/>
+            </IconContainer>
         <ProjectsList className={isOpen ? "extended-list" : "hidden"}>
             {projects.map(project => (
                 <ProjectRow>
@@ -38,9 +38,9 @@ export default MyProjects
 
 const Container = styled.div`
     display: flex;
-flex-direction: column;
-justify-content: flex-start;
-height: 200px;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 200px;
     margin-top: 50px;
     .hidden {
         height: auto;
@@ -54,30 +54,12 @@ height: 200px;
         transition: all 0.3s ease-out;
         flex: 1;
     }
-`;
-const HeaderRow = styled.div`
-    width: 265px;
-    height: 44px;
-    padding: 5px 16px 5px 10px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    .Icon {
-
-      transform: scale(0.7) rotate(-90deg);
-      fill: #8b8b8b;
-      transition: 0.5s;
-      margin-right: 10px;
-    }
-    .rotate {
-        transform: scale(0.7);
-        transition: 0.5s;
-    }
     .add-project{
         position: absolute;
         display: flex;
         justify-content: center;
         align-items: center;
+        top: 470px;
         right: 30px;
        visibility: hidden;
        :hover {
@@ -86,6 +68,25 @@ const HeaderRow = styled.div`
            border-radius: 4px;
            background-color: #dddddd;
        }
+    }
+`;
+const HeaderRow = styled.div`
+    position: relative;
+    width: 265px;
+    height: 44px;
+    padding: 5px 16px 5px 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    .Icon {
+      transform: scale(0.7) rotate(-90deg);
+      fill: #8b8b8b;
+      transition: 0.5s;
+      margin-right: 10px;
+    }
+    .rotate {
+        transform: scale(0.7);
+        transition: 0.5s;
     }
 `;
 
