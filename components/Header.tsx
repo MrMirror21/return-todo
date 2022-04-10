@@ -4,11 +4,12 @@ import BurgerMenuIcon from '../public/statics/svg/iconmonstr-menu-thin.svg';
 import HomeIcon from '../public/statics/svg/iconmonstr-home-thin.svg';
 import SearchBar from "./SearchBar";
 import Link from "next/link";
-import { useSetRecoilState } from "recoil";
-import { currentMenuState } from "../store/states";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { currentMenuState, isMenuOpenState } from "../store/states";
 
 const Header: React.FC = () => {
   const [isUserTyping, setIsUserTyping] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useRecoilState(isMenuOpenState);
   const [searchContent, setSearchContent] = useState("");
   const setCurrentMenu = useSetRecoilState(currentMenuState);
   const onType = (e: React.MouseEvent<HTMLElement>) => {
@@ -23,7 +24,7 @@ const Header: React.FC = () => {
     <>
     <Container>
         <div className={isUserTyping ? "toolbox left extended-bg": "toolbox left"}>
-            <BurgerMenuIcon fill="#ffffff" className="Icon"/>
+            <BurgerMenuIcon fill="#ffffff" className="Icon" onClick={() => setIsMenuOpen(!isMenuOpen)}/>
             <Link href="/today">
                 <HomeIcon fill="#ffffff" className="Icon" onClick={() => setCurrentMenu("today")}/>
             </Link>
@@ -60,27 +61,27 @@ const Container = styled.div`
     }
     input {
         width: 150px;
-        transition: 0.5s;
+        transition: width 0.5s;
         ::placeholder{
             color: #ffffff;
         }
     }
     .extended-bg {
         width: 550px;
-        transition: 0.5s;
+        transition: width 0.5s;
     }
     .extended {
         width: 450px;
         background: #ffffff;
-        transition: 0.5s;
+        transition: width 0.5s;
         .Icon {
             fill: black;
             width: 40px;
-            transition: 0.5s;
+            transition: width 0.5s;
         }
         input {
             width: 390px;
-            transition: 0.5s;
+            transition: width 0.5s;
         }
     }
     .Icon {
