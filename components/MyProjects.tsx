@@ -5,7 +5,7 @@ import { myProjectState } from '../store/states';
 import ArrowDownIcon from '../public/statics/svg/iconmonstr-arrow-65.svg';
 import PlusIcon from '../public/statics/svg/iconmonstr-plus-thin.svg';;
 
-const MyProjects: React.FC = ({setIsModalOpen}) => {
+const MyProjects: React.FC = ({setIsModalOpen, currentProject, setCurrentProject}) => {
     const [projects, setProjects] = useRecoilState(myProjectState);
     const [isOpen, setIsOpen] = useState(true);
   return (
@@ -20,7 +20,7 @@ const MyProjects: React.FC = ({setIsModalOpen}) => {
             </IconContainer>
         <ProjectsList className={isOpen ? "extended-list" : "hidden"}>
             {projects.map(project => (
-                <ProjectRow>
+                <ProjectRow className={currentProject.id === project.id ? "selected" : "not"} onClick={() => setCurrentProject(project)}>
                     <ColorContainer>
                         <TagColor color={project.color.code}/>
                     </ColorContainer>
@@ -99,6 +99,9 @@ const ProjectsList = styled.div`
     width: 265px;
     transition: height 0.5s;
     height: auto;
+    .selected {
+        background: #f1f1f1;
+    }
 `;
 
 const ProjectRow = styled.div`

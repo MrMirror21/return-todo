@@ -4,6 +4,10 @@ import styled from 'styled-components'
 import { colorPalette, myProjectState } from '../store/states';
 import CheckIcon from '../public/statics/svg/iconmonstr-check-mark-17.svg';
 
+const idGenerator = () => {
+  return Math.floor(Math.random() * 100000);
+}
+
 const AddProjectModal: React.FC = ({isOpen, setIsOpen}) => {
   const [projectName, setProjectName] = useState("");
   const [colorName, setColorName] = useState("챠콜");
@@ -14,7 +18,7 @@ const AddProjectModal: React.FC = ({isOpen, setIsOpen}) => {
   const [projects, setProjects] = useRecoilState(myProjectState)
   const projectRef = useRef();
   projectRef.current = projects;
-  const newProject = {
+  let newProject = {
     name: projectName,
     color: {name: colorName, code: colorCode},
     favorite: isFavorite,
@@ -37,6 +41,8 @@ const AddProjectModal: React.FC = ({isOpen, setIsOpen}) => {
       setIsOpen(false);
       return;
     }
+    const newId = idGenerator();
+    newProject['id'] = newId;
     const newList = await [...projectRef.current].concat(newProject);
     setProjects(newList);
     setProjectName("");

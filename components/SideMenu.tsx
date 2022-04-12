@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import Link from "next/link";
 import BoxIcon from '../public/statics/svg/iconmonstr-archive-box-thin.svg';
@@ -15,6 +15,7 @@ const SideMenu: React.FC = () => {
     const [currentMenu, setCurrentMenu] = useRecoilState(currentMenuState);
     const isMenuOpen = useRecoilValue(isMenuOpenState);
     const [isAddingProject, setIsAddingProject] = useState(false);
+    const [currentProject, setCurrentProject] = useState([]);
   return (
     <>
       <Container className={isMenuOpen ? "open" : "closed"}>
@@ -44,8 +45,8 @@ const SideMenu: React.FC = () => {
                 </MenuElement>    
             </Link>
         </MenuSelector>
-        <Favorites />
-        <MyProjects setIsModalOpen={setIsAddingProject}/>
+        <Favorites currentProject={currentProject} setCurrentProject={setCurrentProject}/>
+        <MyProjects setIsModalOpen={setIsAddingProject} currentProject={currentProject} setCurrentProject={setCurrentProject}/>
         <AddProjectModal isOpen={isAddingProject} setIsOpen={setIsAddingProject}/>
       </Container>  
     </>

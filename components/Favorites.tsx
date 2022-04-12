@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { myProjectState } from '../store/states';
 import ArrowDownIcon from '../public/statics/svg/iconmonstr-arrow-65.svg';
 
-const Favorites: React.FC = () => {
+const Favorites: React.FC = ({currentProject, setCurrentProject}) => {
     const projects = useRecoilValue(myProjectState);
     const favorites = projects.filter(project => project.favorite === true);
     const [isOpen, setIsOpen] = useState(true);
@@ -17,7 +17,7 @@ const Favorites: React.FC = () => {
         </HeaderRow>
         <FavoritesList className={isOpen ? "extended-list" : "hidden"}>
             {favorites.map(favorite => (
-                <FavoriteRow>
+                <FavoriteRow className={currentProject.id === favorite.id ? "selected" : "not"} onClick={() => setCurrentProject(favorite)}>
                     <ColorContainer>
                         <TagColor color={favorite.color.code}/>
                     </ColorContainer>
@@ -77,6 +77,9 @@ const FavoritesList = styled.div`
     width: 265px;
     transition: height 0.5s;
     height: auto;
+    .selected {
+        background-color: #f1f1f1;
+    }
 `;
 
 const FavoriteRow = styled.div`
