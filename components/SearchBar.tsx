@@ -23,7 +23,6 @@ const SearchBackground = styled.div`
     width: 198px;
     height: 31px;
     background-color: rgba( 255, 255, 255, 0.3 );
-    z-index: 1;
     
     :hover {
         opacity: 1;
@@ -45,7 +44,6 @@ const SearchBackground = styled.div`
         width: 40px;
         fill: #ffffff;
         opacity: 1;
-        z-index: 2;
         padding-left: 10px;
         transition: 0.5s;
     }
