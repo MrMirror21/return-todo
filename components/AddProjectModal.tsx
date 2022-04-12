@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { useRecoilValue, useRecoilState } from 'recoil';
 import styled from 'styled-components'
-import { colorPalette, favoriteState, myProjectState } from '../store/states';
+import { colorPalette, myProjectState } from '../store/states';
 import CheckIcon from '../public/statics/svg/iconmonstr-check-mark-17.svg';
 
 const AddProjectModal: React.FC = ({isOpen, setIsOpen}) => {
@@ -11,12 +11,9 @@ const AddProjectModal: React.FC = ({isOpen, setIsOpen}) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
   const palette = useRecoilValue(colorPalette);
-  const [favorites, setFavorites] = useRecoilState(favoriteState)
   const [projects, setProjects] = useRecoilState(myProjectState)
   const projectRef = useRef();
-  const favoritesRef = useRef();
   projectRef.current = projects;
-  favoritesRef.current = favorites;
   const newProject = {
     name: projectName,
     color: {name: colorName, code: colorCode},
@@ -40,13 +37,7 @@ const AddProjectModal: React.FC = ({isOpen, setIsOpen}) => {
       setIsOpen(false);
       return;
     }
-    const newFavorites = await [...favoritesRef.current].concat(newProject);
     const newList = await [...projectRef.current].concat(newProject);
-    console.log(newFavorites);
-    console.log(newList);
-    if (newProject.favorite) {
-      setFavorites(newFavorites);
-    }
     setProjects(newList);
     setProjectName("");
     setColorName("챠콜");

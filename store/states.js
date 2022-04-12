@@ -31,27 +31,6 @@ export const myProjectState = atom({
   ],
 });
 
-export const favoriteState = atom({
-  key: "favoriteState",
-  default: [
-    {
-      name: "약속",
-      color: { name: "퍼플", code: "#9254C8" },
-      favorite: true,
-    },
-    {
-      name: "할일",
-      color: { name: "스카이 블루", code: "#4D96FF" },
-      favorite: false,
-    },
-    {
-      name: "리턴 프로젝트",
-      color: { name: "그린", code: "#6BCB77" },
-      favorite: true,
-    },
-  ],
-});
-
 export const colorPalette = atom({
   key: "colorPalette",
   default: [

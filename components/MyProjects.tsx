@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
 import { useRecoilState } from 'recoil';
-import { favoriteState } from '../store/states';
+import { myProjectState } from '../store/states';
 import ArrowDownIcon from '../public/statics/svg/iconmonstr-arrow-65.svg';
 import PlusIcon from '../public/statics/svg/iconmonstr-plus-thin.svg';;
 
 const MyProjects: React.FC = ({setIsModalOpen}) => {
-    const [projects, setProjects] = useRecoilState(favoriteState);
+    const [projects, setProjects] = useRecoilState(myProjectState);
     const [isOpen, setIsOpen] = useState(true);
   return (
     <>
@@ -22,7 +22,7 @@ const MyProjects: React.FC = ({setIsModalOpen}) => {
             {projects.map(project => (
                 <ProjectRow>
                     <ColorContainer>
-                        <TagColor color={project.color}/>
+                        <TagColor color={project.color.code}/>
                     </ColorContainer>
                     <ProjectText>{project.name}</ProjectText>
                 </ProjectRow>
@@ -40,7 +40,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 200px;
+    height: 250px;
     margin-top: 50px;
     .hidden {
         height: auto;

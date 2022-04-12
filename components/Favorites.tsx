@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { useRecoilState } from 'recoil';
-import { favoriteState } from '../store/states';
+import { useRecoilValue } from 'recoil';
+import { myProjectState } from '../store/states';
 import ArrowDownIcon from '../public/statics/svg/iconmonstr-arrow-65.svg';
 
 const Favorites: React.FC = () => {
-    const [favorites, setFavorites] = useRecoilState(favoriteState);
+    const projects = useRecoilValue(myProjectState);
+    const favorites = projects.filter(project => project.favorite === true);
     const [isOpen, setIsOpen] = useState(true);
   return (
     <>
@@ -18,7 +19,7 @@ const Favorites: React.FC = () => {
             {favorites.map(favorite => (
                 <FavoriteRow>
                     <ColorContainer>
-                        <TagColor color={favorite.color}/>
+                        <TagColor color={favorite.color.code}/>
                     </ColorContainer>
                     <FavoriteText>{favorite.name}</FavoriteText>
                 </FavoriteRow>
