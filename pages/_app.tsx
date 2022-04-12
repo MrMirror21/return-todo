@@ -43,8 +43,10 @@ const Main = styled.div`
     overflow-x: hidden;
   }
   .component {
+    display: flex;
     flex-grow: 1;
     transition: margin-left 0.5s cubic-bezier(.4,0,.2,1);
+    justify-content: center;
   }
   .menu-shown {
     margin-left: 305px;

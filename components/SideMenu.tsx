@@ -1,10 +1,8 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
 import Link from "next/link";
-import BoxIcon from '../public/statics/svg/iconmonstr-archive-box-thin.svg';
 import CalendarIcon from '../public/statics/svg/iconmonstr-calendar-thin.svg';
 import ArrowRightIcon from '../public/statics/svg/iconmonstr-arrow-right-thin.svg';
-import TagIcon from '../public/statics/svg/iconmonstr-tags-thin.svg';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {currentMenuState, isMenuOpenState} from '../store/states';
 import Favorites from './Favorites';
@@ -35,14 +33,6 @@ const SideMenu: React.FC = () => {
                         <span>다음</span>
                     </ElementContent>
                 </MenuElement>      
-            </Link>
-            <Link href="/filter">
-                <MenuElement className={currentMenu === "filter" ? "selected menu" : "menu"} onClick={() => setCurrentMenu("filter")}>
-                    <TagIcon fill="#FF8C32"/>
-                    <ElementContent>
-                        <span>필터 {"&"} 라벨</span>
-                    </ElementContent>
-                </MenuElement>    
             </Link>
         </MenuSelector>
         <Favorites currentProject={currentProject} setCurrentProject={setCurrentProject}/>

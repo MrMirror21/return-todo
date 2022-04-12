@@ -2,14 +2,17 @@ import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import BurgerMenuIcon from '../public/statics/svg/iconmonstr-menu-thin.svg';
 import HomeIcon from '../public/statics/svg/iconmonstr-home-thin.svg';
+import PlusIcon from '../public/statics/svg/iconmonstr-plus-thin.svg';
 import SearchBar from "./SearchBar";
 import Link from "next/link";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { currentMenuState, isMenuOpenState } from "../store/states";
+import { currentMenuState, isMenuOpenState, isModalOpenState } from "../store/states";
+import AddTaskModal from "./AddTaskModal";
 
 const Header: React.FC = () => {
   const [isUserTyping, setIsUserTyping] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useRecoilState(isMenuOpenState);
+  const [isModalOpen, setIsModalOpen] = useRecoilState(isModalOpenState);
   const [searchContent, setSearchContent] = useState("");
   const setCurrentMenu = useSetRecoilState(currentMenuState);
   const onType = (e: React.MouseEvent<HTMLElement>) => {
@@ -31,12 +34,10 @@ const Header: React.FC = () => {
             <SearchBar content={searchContent} setContent={onType} isTyping={isUserTyping} setIsTyping={setIsUserTyping}/>
         </div>
         <div className="toolbox right">
-            icon
-            icon
-            icon
-            icon
-            profile
+            <PlusIcon fill="#ffffff" className="Icon" onClick={() => setIsModalOpen(true)}/>
+            <ProfileImg />
         </div>
+        <AddTaskModal isOpen={isModalOpen} setIsOpen={setIsModalOpen}/>
     </Container>
 </>
   )
@@ -59,6 +60,10 @@ const Container = styled.div`
         justify-content: space-between;
         align-items: center;
     }
+    .right {
+        display: flex;
+        justify-content: space-evenly;
+    }
     input {
         width: 150px;
         transition: width 0.5s;
@@ -78,6 +83,7 @@ const Container = styled.div`
             fill: black;
             width: 40px;
             transition: width 0.5s;
+            cursor: pointer;
         }
         input {
             width: 390px;
@@ -87,4 +93,14 @@ const Container = styled.div`
     .Icon {
         cursor: pointer;
     }
+    .hidden {
+        display: none;
+    }
+`;
+
+const ProfileImg = styled.div`
+    width: 24px;
+    height: 24px;
+    border-radius: 100px;
+    background: #8b8b8b;
 `;

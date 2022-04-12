@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import React from 'react'
 import {useRouter} from 'next/router'
 import styled from 'styled-components'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { myProjectState, myTaskState, isMenuOpenState } from '../../store/states'
 import Task from '../../components/Task'
 
@@ -10,10 +10,15 @@ const id: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const projects = useRecoilValue(myProjectState);
-  const tasks = useRecoilValue(myTaskState);
+  const [tasks, setTasks] = useRecoilState(myTaskState);
   const project = projects.find(element => String(element.id) === id);
   const taskList = tasks.filter(task => task.project === project.name);
   const isMenuOpen = useRecoilValue(isMenuOpenState);
+
+  const removeTask = (task) => {
+    const newList = tasks.filter(element=> element.id !== task.id);
+    setTasks(newList);
+  }
   return (
     <>
     <Container className={isMenuOpen ? "menu-shown" : "menu-hide"}>
@@ -21,9 +26,8 @@ const id: NextPage = () => {
         <TaskListContainer>
             {taskList.map(task => (
                 <>
-                <Task content={task}/>
+                   <Task content={task} onCheck={removeTask}/>
                 </>
-
             ))}
         </TaskListContainer>
     </Container>
@@ -40,6 +44,7 @@ const Container = styled.div`
     justify-content: center;
     transition: 0.5s;
     padding: 30px;
+    margin: auto;
 `;
 
 const Title = styled.div`

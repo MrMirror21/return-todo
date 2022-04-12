@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { useRecoilState } from 'recoil';
 import { myProjectState } from '../store/states';
 import ArrowDownIcon from '../public/statics/svg/iconmonstr-arrow-65.svg';
-import PlusIcon from '../public/statics/svg/iconmonstr-plus-thin.svg';;
+import PlusIcon from '../public/statics/svg/iconmonstr-plus-thin.svg';import Link from 'next/link';
+;
 
 const MyProjects: React.FC = ({setIsModalOpen, currentProject, setCurrentProject}) => {
     const [projects, setProjects] = useRecoilState(myProjectState);
@@ -20,12 +21,14 @@ const MyProjects: React.FC = ({setIsModalOpen, currentProject, setCurrentProject
             </IconContainer>
         <ProjectsList className={isOpen ? "extended-list" : "hidden"}>
             {projects.map(project => (
+                <Link href="/project/[id]" as={`/project/${project.id}`} >
                 <ProjectRow className={currentProject.id === project.id ? "selected" : "not"} onClick={() => setCurrentProject(project)}>
                     <ColorContainer>
                         <TagColor color={project.color.code}/>
                     </ColorContainer>
                     <ProjectText>{project.name}</ProjectText>
                 </ProjectRow>
+                </Link>
             ))}
         </ProjectsList>
     </Container>
@@ -59,7 +62,7 @@ const Container = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        top: 470px;
+        top: 430px;
         right: 30px;
        visibility: hidden;
        :hover {

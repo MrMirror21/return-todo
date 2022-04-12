@@ -10,6 +10,11 @@ export const isMenuOpenState = atom({
   default: true,
 });
 
+export const isModalOpenState = atom({
+  key: "isModalOpenState",
+  default: false,
+});
+
 export const myProjectState = atom({
   key: "myProjectState",
   default: [
@@ -38,16 +43,19 @@ export const myTaskState = atom({
   key: "myTaskState",
   default: [
     {
+      id: 1234456567,
       name: "4/12 줌회의",
       color: { name: "퍼플", code: "#9254C8" },
       project: "약속",
     },
     {
+      id: 1234456568,
       name: "신병 인솔",
       color: { name: "스카이 블루", code: "#4D96FF" },
       project: "할일",
     },
     {
+      id: 1234456569,
       name: "투두 리스트",
       color: { name: "그린", code: "#6BCB77" },
       project: "리턴 프로젝트",
