@@ -1,14 +1,24 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
 import { useRecoilState } from 'recoil';
-import { myProjectState } from '../store/states';
+import { myProjectState, myTaskState } from '../store/states';
 import ArrowDownIcon from '../public/statics/svg/iconmonstr-arrow-65.svg';
+import DeleteIcon from '../public/statics/svg/iconmonstr-trash-can-28.svg';
 import PlusIcon from '../public/statics/svg/iconmonstr-plus-thin.svg';import Link from 'next/link';
 ;
 
 const MyProjects: React.FC = ({setIsModalOpen, currentProject, setCurrentProject}) => {
     const [projects, setProjects] = useRecoilState(myProjectState);
+    const [tasks, setTasks] = useRecoilState(myTaskState);
     const [isOpen, setIsOpen] = useState(true);
+
+    const deleteProject = (target, e) => {
+        e.stopPropagation();
+        const newList = projects.filter(project => target.id !== project.id);
+        const newTaskList = tasks.filter(task => task.project !== target.name);
+        setTasks(newTaskList);
+        setProjects(newList);
+      }
   return (
     <>
     <Container>
@@ -21,14 +31,17 @@ const MyProjects: React.FC = ({setIsModalOpen, currentProject, setCurrentProject
             </IconContainer>
         <ProjectsList className={isOpen ? "extended-list" : "hidden"}>
             {projects.map(project => (
-                <Link href="/project/[id]" as={`/project/${project.id}`} >
-                <ProjectRow className={currentProject.id === project.id ? "selected" : "not"} onClick={() => setCurrentProject(project)}>
-                    <ColorContainer>
-                        <TagColor color={project.color.code}/>
-                    </ColorContainer>
-                    <ProjectText>{project.name}</ProjectText>
-                </ProjectRow>
-                </Link>
+                    <Link href="/project/[id]" as={`/project/${project.id}`} >
+                        <ProjectRow className={currentProject.id === project.id ? "selected" : "not"} onClick={() => setCurrentProject(project)}>
+                            <ColorContainer>
+                            <TagColor color={project.color.code}/>
+                            </ColorContainer>
+                            <ProjectText>{project.name}</ProjectText>
+                            <IconContainer className="delete-project">
+                                <DeleteIcon onClick={(e) => deleteProject(project, e)}/>
+                            </IconContainer>
+                        </ProjectRow>
+                    </Link>
             ))}
         </ProjectsList>
     </Container>
@@ -72,6 +85,22 @@ const Container = styled.div`
            background-color: #dddddd;
        }
     }
+    .delete-project{
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 10px;
+        right: 30px;
+        visibility: hidden;
+        fill: #8b8b8b;
+       :hover {
+           width: 24px;
+           height: 24px;
+           border-radius: 4px;
+           fill: #313338;
+       }
+    }
 `;
 const HeaderRow = styled.div`
     position: relative;
@@ -108,6 +137,7 @@ const ProjectsList = styled.div`
 `;
 
 const ProjectRow = styled.div`
+    position: relative;
     display: flex;
     width: 265px;
     height: 44px;
@@ -118,6 +148,9 @@ const ProjectRow = styled.div`
     :hover {
         background-color: #f1f1f1;
         transition: 0.3s;
+        .delete-project{
+            visibility: visible;
+        }
     }
 `;
 

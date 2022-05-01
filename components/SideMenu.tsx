@@ -53,6 +53,7 @@ const Container = styled.div`
     padding-left: 35px;
     position: fixed;
     left: 0;
+    flex: 1;
     transition: left .25s cubic-bezier(.4,0,.2,1);
     overflow-x: hidden;
     :hover{
