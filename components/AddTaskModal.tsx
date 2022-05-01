@@ -11,14 +11,16 @@ const idGenerator = () => {
 const AddTaskModal: React.FC = ({isOpen, setIsOpen}) => {
     const projects = useRecoilValue(myProjectState);
     const [taskName, setTaskName] = useState("");
+    const [date, setDate] = useState();
     const [projectName, setProjectName] = useState(projects.[0].name);
     const [colorCode, setColorCode] = useState(projects[0].color.code);
     const [isPaletteOpen, setIsPaletteOpen] = useState(false);
     const [tasks, setTasks] = useRecoilState(myTaskState)
     const taskRef = useRef();
-    taskRef.current = projects;
+    taskRef.current = tasks;
     let newTask = {
       name: taskName,
+      date: date,
       color: {code: colorCode},
       project: projectName,
     };
@@ -50,6 +52,8 @@ const AddTaskModal: React.FC = ({isOpen, setIsOpen}) => {
         <ModalInner>
           <LabelText>제목</LabelText>
           <input type="text" className="name-input" value={taskName} onChange={handleInput}/>
+          <LabelText>날짜</LabelText>
+          <input type="date" value={date} className="date-input" onChange={(e) => setDate(e.currentTarget.value)} />
           <LabelText>프로젝트</LabelText>
           <CurrentColor onClick={() => setIsPaletteOpen(!isPaletteOpen)}>
             <ColorEx color={colorCode} />
@@ -105,7 +109,7 @@ const ModalOutlay = styled.div`
   flex-direction: column;
   margin: auto;
   width: 400px;
-  height: 320px;
+  height: 500px;
   border-radius: 20px;
   background-color: #ffffff;
   -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.29); 
@@ -127,7 +131,7 @@ const ModalInner = styled.div`
   display: flex;
   flex-direction: column;
   align-items: left;
-  height: 200px;
+  height: 350px;
   border-bottom: 1px solid #f1f1f1;
   padding: 0px 24px;
   color: black;
@@ -143,6 +147,16 @@ const ModalInner = styled.div`
   :focus {
       outline: 1px solid #7054ff;
     }
+  }
+  .date-input {
+    width: 351px;
+    height: 31px;
+    padding: 5px;
+    border: 1px solid #f1f1f1;
+    border-radius: 3px;
+    margin-bottom: 30px;
+    font-size: 15px;
+    font-family: 'Pretendard';
   }
 `;
 

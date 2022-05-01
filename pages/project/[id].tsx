@@ -55,5 +55,6 @@ const Title = styled.div`
 
 const TaskListContainer = styled.div`
     display: flex;
+    flex-direction: column;
     align-items: center;
 `;

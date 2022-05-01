@@ -27,7 +27,7 @@ const Main = styled.div`
   width: 100vw;
   display: flex;
   flex: 1;
-  justify-content: space-between;
+  justify-content: center;
   .closed{
       left: -305px;
       transition: 0.5s;
@@ -44,7 +44,7 @@ const Main = styled.div`
   }
   .component {
     display: flex;
-    flex-grow: 1;
+    flex: 1;
     transition: margin-left 0.5s cubic-bezier(.4,0,.2,1);
     justify-content: center;
   }

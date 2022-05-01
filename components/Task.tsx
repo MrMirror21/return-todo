@@ -15,7 +15,7 @@ const Task: React.FC = ({content, onCheck}) => {
         </InfoContainer>
         <ProjectInfo>
             <ColorCircle color={content.color.code}/>
-            <span className="project-name">{content.project}</span>
+            <span className="project-name">{content.project} / {content.date}</span>
         </ProjectInfo>
     </Container>
     </>
@@ -29,6 +29,7 @@ const Container = styled.div`
     width: 500px;
     padding-bottom: 20px;
     border-bottom: 1px solid #f1f1f1;
+    margin-bottom: 20px;
 `;
 
 const CheckCircle = styled.div`
